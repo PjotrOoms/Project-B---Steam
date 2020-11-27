@@ -24,4 +24,4 @@ Wij , een groep van 5 studenten, zijn het consultancybedrijf dat Steam gaat help
 
 
 ## Instructies 
-De .py runnen in je python compiler, de GUI komt dan teevoorschijn
+De .py runnen in je python compiler, de GUI komt dan tevoorschijn
