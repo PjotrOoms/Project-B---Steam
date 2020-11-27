@@ -21,3 +21,7 @@ Wij , een groep van 5 studenten, zijn het consultancybedrijf dat Steam gaat help
 - Damian, 1789744, deemster
 - Thijs, 1784009, thijsvm03
 - Pjotr, 1789166, PjotrOoms
+
+
+## Instructies 
+De .py runnen in je python compiler, de GUI komt dan teevoorschijn
