@@ -14,7 +14,6 @@ Wij , een groep van 5 studenten, zijn het consultancybedrijf dat Steam gaat help
 
 ## Groepsleden
 - Joel, 1746335, DefoDefender
-- Niek, 1740174, Niek99
 - Damian, 1789744, deemster
 - Thijs, 1784009, thijsvm03
 - Pjotr, 1789166, PjotrOoms
