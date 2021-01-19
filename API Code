@@ -27,12 +27,10 @@ def steamname(steamid):
     return data['response']['players'][0]['personaname']
 
 
-selectedfriends = ['PizzaJuice']
+selectedfriends = ['76561198300419337']
 steamid = '76561198371968392'
 
-for friend in friends(steamid):
-    friendsteamid = friend['steamid']
-    friendname = steamname(friendsteamid)
-    if friendname in selectedfriends:
-        print(steamname(friendsteamid) + " " + str((profilestate(friendsteamid))))
+for friend in selectedfriends:
+    friendname = steamname(friend)
+    print(steamname(friend) + " " + str((profilestate(friend))))
 
