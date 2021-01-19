@@ -6,11 +6,8 @@ Steam wil haar klanten beter bedienen door meer grafische weergaves te maken van
 
 Enkele vragen die Steam beantwoord wil zien voor haar klanten:
 
-Welke games spelen mijn vrienden?
-Welke spellen worden het meest gespeeld?
-Wanneer zijn jouw vrienden online?
-Wanneer heb je gepland om te gaan spelen?
-Welke aanbevelingen kunnen er gemaakt worden om te spelen?
+Welke games zijn er beschikbaar?
+Zijn mijn vrienden online?
 Maar er zijn nog veel meer vragen die gesteld kunnen worden en Steam laat zich graag verrassen. 
 
 Wij , een groep van 5 studenten, zijn het consultancybedrijf dat Steam gaat helpen deze verandering te implementeren. 
@@ -24,4 +21,5 @@ Wij , een groep van 5 studenten, zijn het consultancybedrijf dat Steam gaat help
 
 
 ## Instructies 
-De .py runnen in je python compiler, de GUI komt dan tevoorschijn
+De .py runnen in je python compiler, de GUI van Tkinter komt dan tevoorschijn. Dit is het dashboard, waar je 3 opties hebt; Games, Stats en Friends.
+
