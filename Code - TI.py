@@ -28,14 +28,15 @@ def steamname(steamid):
     data = json.loads(response.text)
     return data['response']['players'][0]['personaname']
 
-
-selectedfriends = ['76561198371968392', '76561198186998210', '76561198166621811', '76561198401901151']
 steamid = '76561198371968392'
+selectedfriends = friends(steamid)[:4]
 ledlist = [18, 17, 4, 21]
+
 for x in ledlist:
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(x, GPIO.OUT)
+
 while True:
     for friend in selectedfriends:
         friendname = steamname(friend)
