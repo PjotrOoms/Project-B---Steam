@@ -1,21 +1,24 @@
 import json
 import requests
 
+
 def profilestate(steamid):
     url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=68A6A5CD1D0EE6576FCBE1486E405D46&steamids=' + steamid
     response = requests.get(url)
     data = json.loads(response.text)
     status = data['response']['players'][0]['profilestate']
-    if status == 0:
-        return 'Offline'
     if status == 1:
         return 'Online'
+    if status != 1:
+        return 'Ofline'
+
 
 def friends(steamid):
     url = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=68A6A5CD1D0EE6576FCBE1486E405D46&steamid=' + steamid + "&relationship=friend"
     response = requests.get(url)
     data = json.loads(response.text)
     return data['friendslist']['friends']
+
 
 def steamname(steamid):
     url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=68A6A5CD1D0EE6576FCBE1486E405D46&steamids=' + steamid
@@ -24,7 +27,12 @@ def steamname(steamid):
     return data['response']['players'][0]['personaname']
 
 
-for friend in friends('76561198066190115'):
+selectedfriends = ['PizzaJuice']
+steamid = '76561198371968392'
+
+for friend in friends(steamid):
     friendsteamid = friend['steamid']
-    print(steamname(friendsteamid) + " " + (profilestate(friendsteamid)))
+    friendname = steamname(friendsteamid)
+    if friendname in selectedfriends:
+        print(steamname(friendsteamid) + " " + str((profilestate(friendsteamid))))
 
