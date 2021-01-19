@@ -9,8 +9,6 @@ url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=D03A
 response = requests.get(url)
 data_api = json.loads(response.text)
 df2 = pd.DataFrame(data_api)
-print(df2)
-
 
 #  ---Reading JSON------------------------------------------------------------------------------------------------------
 with open('steam.json', 'r') as steamfile:
@@ -30,6 +28,8 @@ list_name2 = df.iloc[0:30000, 1].values
 #  ---Lists-------------------------------------------------------------------------------------------------------------
 list_games = []
 list_games.extend(list_name2)
+list_games2 = []
+list_games2.extend(list_name2)
 list_prices2 = []
 list_prices2.extend(list_price)
 #  ---Counter-----------------------------------------------------------------------------------------------------------
@@ -123,6 +123,17 @@ def sort_games(a, b):
     for x in list_games[a:b]:
         text_box1.insert("end-1c", f'{x}\n')
 
+def search_games():
+    search = text_box_search.get("1.0", 'end-1c')
+    search2 = str(search)
+    text_box_search.delete("1.0", "end")
+    merge_sort(list_games2, 0, len(list_games2) - 1)
+    a = binary_search_recursive(list_games2, f'{search2}')
+    if a:
+        text_box_search.insert("end-1c", f'Dit spel is beschikbaar\nop Steam!\n')
+    else:
+        text_box_search.insert("end-1c", f'Dit spel is helaas niet\nbeschikbaar op Steam...\n')
+
 def pref_page():
     global index1, index2
     index1 -= 10
@@ -158,7 +169,7 @@ def afsluiten3():
     root_4.destroy()
 
 def games():
-    global text_box1, root_2
+    global text_box1, root_2, text_box_search
     root_2 = Toplevel(root_dashboard)
     root_2.geometry("600x400")
     root_2.title("STEAM Games")
@@ -171,12 +182,21 @@ def games():
     name_label = Label(root_2, text='Toon de eerste 10 spellen,\ngesorteerd op naam:')
     name_label.place(x=20, y=220)
 
-    #  Textvak spel
+    #  Label zoeken
+    search_label = Label(root_2, text='Vul hieronder het spel\nin wat u wilt zoeken')
+    search_label.place(x=300, y=220)
+
+    #  Tekstvak spel
     text_box1 = Text(root_2, width=70, height=10)
     text_box1.place(x=20, y=40)
     text_box1.delete("1.0", "end")
     for x in list_name:
         text_box1.insert("end-1c", f'{x}\n')
+
+    #  Tektstvak zoeken
+    text_box_search = Text(root_2, width=30, height=4)
+    text_box_search.place(x=300, y=270)
+    text_box1.delete("1.0", "end")
 
     #  Toon games button
     name_btn = Button(root_2, text="Sorteer", command=lambda: sort_games(index1, index2))
@@ -189,6 +209,10 @@ def games():
     #  Next page button
     next_btn = Button(root_2, text="Volgende pagina", command=next_page)
     next_btn.place(x=160, y=310, width=100)
+
+    #  Search button
+    search_btn = Button(root_2, text="Zoeken", command=search_games)
+    search_btn.place(x=500, y=230, width=60)
 
     #  Afsluiten button
     afs_btn = Button(root_2, text="Afsluiten", command=afsluiten1)
@@ -263,9 +287,5 @@ stats_btn.place(x=20, y=200, width=60)
 fr_btn = Button(root_dashboard, text="Friends", command=friends)
 fr_btn.place(x=200, y=100, width=60)
 
-mainloop()
-
 #  ---Run---------------------------------------------------------------------------------------------------------------
-mean(list_price)        # Gemiddelde prijs van alle spellen op steam
-mode(list_genres)       # Meest voorkomende genre op steam
-rnge(list_price)     # Het bereik van de prijs, het verschil tussen het duurste en goedkoopste spel
+mainloop()
