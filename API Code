@@ -32,8 +32,8 @@ def friendsactivity(steamid):
         print(steamname(friend) + ' ' + str((personastate(friend))))
 
 
-selectedfriends = ['76561198300419337', '76561198186998210', '76561198166621811', '76561198401901151']
 steamid = '76561198371968392'
+selectedfriends = friends(steamid)
 
 for friend in selectedfriends:
     friendname = steamname(friend)
