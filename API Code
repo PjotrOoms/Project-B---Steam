@@ -2,11 +2,11 @@ import json
 import requests
 
 
-def profilestate(steamid):
+def personastate(steamid):
     url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=68A6A5CD1D0EE6576FCBE1486E405D46&steamids=' + steamid
     response = requests.get(url)
     data = json.loads(response.text)
-    status = data['response']['players'][0]['profilestate']
+    status = data['response']['players'][0]['personastate']
     if status == 1:
         return 'Online'
     if status != 1:
@@ -27,10 +27,9 @@ def steamname(steamid):
     return data['response']['players'][0]['personaname']
 
 
-selectedfriends = ['76561198300419337']
+selectedfriends = ['76561198300419337', '76561198186998210', '76561198166621811', '76561198401901151']
 steamid = '76561198371968392'
 
 for friend in selectedfriends:
     friendname = steamname(friend)
-    print(steamname(friend) + " " + str((profilestate(friend))))
-
+    print(steamname(friend) + " " + str((personastate(friend))))
