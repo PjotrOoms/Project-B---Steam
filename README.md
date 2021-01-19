@@ -22,4 +22,6 @@ Wij , een groep van 5 studenten, zijn het consultancybedrijf dat Steam gaat help
 
 ## Instructies 
 De .py runnen in je python compiler, de GUI van Tkinter komt dan tevoorschijn. Dit is het dashboard, waar je 3 opties hebt; Games, Stats en Friends.
-
+Vervolgens kan je in de het Games menu, games te zien krijgen die beschikbaar zijn op Steam en gesorteerd op naam.
+In het stats menu zijn bepaalde statistieken te bekijken over Steam.
+In het friends menu is te zien welke vrienden online zijn en en dit wordt vervolgens ook aangegeven door een led te laten branden via de Raspberry Pi.
