@@ -4,12 +4,6 @@ import json
 import pandas as pd
 import requests
 
-#  ---Connection STEAM-API----------------------------------------------------------------------------------------------
-url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=D03A0BA6AB84B12E3CC1CF7B9DDA8D77&steamids=76561198086692174'
-response = requests.get(url)
-data_api = json.loads(response.text)
-df2 = pd.DataFrame(data_api)
-
 #  ---Reading JSON------------------------------------------------------------------------------------------------------
 with open('steam.json', 'r') as steamfile:
     data = json.load(steamfile)
@@ -72,7 +66,7 @@ def merge(lst, left_index, right_index, middle):
         right_sublist_index = right_sublist_index + 1
         sorted_index = sorted_index + 1
 
-# ---Seach_Functions----------------------------------------------------------------------------------------------------
+# ---Search-Functions----------------------------------------------------------------------------------------------------
 def binary_search_recursive(lst, target):
     """ Returns of het element in de lijst voorkomt (true or false) """
     midden = len(lst) // 2
@@ -158,6 +152,15 @@ def toon_modus():
 def toon_rnge():
     text_box2.delete("1.0", "end")
     text_box2.insert("end-1c", f'Het goedkoopste spel is gratis en\nhet duurste spel is\n{rnge(list_prices2)}\n')
+
+def toon_vr():
+    for friend in selectedfriends:
+        friendname = steamname(friend)
+        status = personastate(friend)
+        if status == 1:
+            text_box3.insert("end-1c", f'{friendname} is online\n')
+        else:
+            text_box3.insert("end-1c", f'{friendname} is offline\n')
 
 def afsluiten1():
     root_2.destroy()
@@ -249,13 +252,13 @@ def stats():
     afs_btn = Button(root_3, text="Afsluiten", command=afsluiten2)
     afs_btn.place(x=290, y=260, width=100)
 
-def friends():
+def friends_gui():
     global text_box3, root_4
     root_4 = Toplevel(root_dashboard)
     root_4.geometry("600x400")
     root_4.title("STEAM Friends")
     #  Label vrienden
-    friends_label = Label(root_4, text="Vrienden\nonline:")
+    friends_label = Label(root_4, text="Vrienden:")
     friends_label.place(x=20, y=20)
 
     #  Textvak vrienden
@@ -265,6 +268,33 @@ def friends():
     #  Afsluiten button
     afs_btn = Button(root_4, text="Afsluiten", command=afsluiten3)
     afs_btn.place(x=450, y=300, width=130)
+    toon_vr()
+
+#  ---Steam-API-Functions------------------------------------------------------------------------------------------------
+def personastate(steamid):
+    url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=68A6A5CD1D0EE6576FCBE1486E405D46&steamids=' + str(steamid)
+    response = requests.get(url)
+    data = json.loads(response.text)
+    status = data['response']['players'][0]['personastate']
+    if status == 1:
+        return 1
+    if status != 1:
+        return 0
+
+def friends(steamid):
+    url = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=68A6A5CD1D0EE6576FCBE1486E405D46&steamid=' + str(steamid) + "&relationship=friend"
+    response = requests.get(url)
+    data = json.loads(response.text)
+    return data['friendslist']['friends']
+
+def steamname(steamid):
+    url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=68A6A5CD1D0EE6576FCBE1486E405D46&steamids=' + str(steamid)
+    response = requests.get(url)
+    data = json.loads(response.text)
+    return data['response']['players'][0]['personaname']
+
+steamid = '76561198371968392'
+selectedfriends = friends(steamid)[:10]
 
 #  ---Dashboard---------------------------------------------------------------------------------------------------------
 root_dashboard = Tk()
@@ -284,7 +314,7 @@ stats_btn = Button(root_dashboard, text="Stats", command=stats)
 stats_btn.place(x=20, y=200, width=60)
 
 #  Friends button
-fr_btn = Button(root_dashboard, text="Friends", command=friends)
+fr_btn = Button(root_dashboard, text="Friends", command=friends_gui)
 fr_btn.place(x=200, y=100, width=60)
 
 #  ---Run---------------------------------------------------------------------------------------------------------------
